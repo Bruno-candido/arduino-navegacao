@@ -15,18 +15,17 @@ parser.on('data', function(dados){
     dadosArduino=dados
 }) 
 
-//---------------------------------------------------------------------------------
-routes.get('/a', (req, res)=>{
+routes.get('/readdata', (req, res)=>{
   return res.send(dadosArduino)
 })
 
-routes.get('/b',(request, response)=>{
+routes.get('/writedata',(request, response)=>{
     const params = request.query
-    console.log(params)
+    port.write(params.data)
+    console.log(params.data)
     return response.json({
-        data: "sensor",
-        test: "quase lá"
-    })
+        "Enviado": params
+    }) 
 })
 
 
