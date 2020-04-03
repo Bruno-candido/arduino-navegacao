@@ -4,13 +4,12 @@ import { View, Image, Text, TouchableOpacity } from 'react-native'
 import api from '../../services/api'
 
 import styles from './style'
-import { FlatList } from 'react-native-gesture-handler'
 
 export default function Controle(){
     const [dataArduino, setDataArduino] = useState([])
 
     async function loadDataArduino(){
-        const response = await api.get('a')
+        const response = await api.get('readdata')
         setDataArduino(response.data)
     }
     useEffect(()=>{
@@ -33,11 +32,19 @@ export default function Controle(){
             <View style={styles.buttonContainer}>
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress={()=>{}}
+                    onPress={() =>{
+                        api.get('writedata?data=1')
+                    }}
+
                 >
                     <Text style={styles.textButton}>Liga Led</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity 
+                style={styles.button}
+                onPress={() =>{
+                    api.get('writedata?data=2')
+                }}
+                >
                     <Text style={styles.textButton}>Desliga Led</Text>
                 </TouchableOpacity>
             </View>
